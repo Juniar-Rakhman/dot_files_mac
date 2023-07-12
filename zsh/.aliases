@@ -1,0 +1,34 @@
+# telnet & ssh aliases
+alias telgit='telnet git.rithm.nl 50022'
+alias sshep='ssh -D 5001 jrakhman@easierphone-dev.almende.org'
+alias sshepp='ssh -D 5001 jrakhman@easierphone-preprod.almende.org'
+
+alias vi="nvim"
+alias vim="nvim"
+alias svim="sudo nvim"
+alias rzsh="source ~/.zshrc"
+
+alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session
+alias tsrc="tmux source-file ~/.tmux.conf"
+alias tkill="tmux ls | cut -d : -f 1 | xargs -I {} tmux kill-session -t {}" # tmux kill all sessions
+
+alias ct="ctags -R --exclude=.git --exclude=node_modules"
+alias dotfiles="ls -a | grep '^\.' | grep --invert-match '\.DS_Store\|\.$'"
+
+alias lzg="lazygit"
+alias lzd="lazydocker"
+
+# some more ls aliases
+alias ls='exa'
+alias ll='exa -lF'
+alias la='exa -alF'
+alias lt='exa -al -snew'
+alias tree="exa --tree"
+
+alias cat='bat'
+
+# Go aliases
+# alias go='richgo'
+
+# Docker aliases
+alias dc="docker-compose"

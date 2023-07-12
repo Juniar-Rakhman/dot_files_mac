@@ -1,0 +1,6 @@
+" Theme
+" This is an alias to 'color' and 'set theme'
+colorscheme dark
+
+" Sane hinting mode
+set hintfiltermode vimperator-reflow

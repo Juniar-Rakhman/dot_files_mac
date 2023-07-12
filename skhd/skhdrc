@@ -1,0 +1,65 @@
+#!/usr/bin/env sh
+
+# reset border color in default mode
+:: default : yabai -m config active_window_border_color 0xE032CD32
+
+# Moving window to another space
+cmd + alt + ctrl + shift - 1 : yabai -m window --space 1
+cmd + alt + ctrl + shift - 2 : yabai -m window --space 2
+cmd + alt + ctrl + shift - 3 : yabai -m window --space 3 
+cmd + alt + ctrl + shift - 4 : yabai -m window --space 4 
+cmd + alt + ctrl + shift - 5 : yabai -m window --space 5 
+
+# Changing Window Focus
+cmd + ctrl - h : yabai -m window --focus west
+cmd + ctrl - j : yabai -m window --focus south
+cmd + ctrl - k : yabai -m window --focus north
+cmd + ctrl - l : yabai -m window --focus east
+
+# Change focus between external display
+cmd + ctrl - up : yabai -m display --focus north
+cmd + ctrl - down : yabai -m display --focus south
+
+# Moving window to external display
+cmd + ctrl + shift - up : yabai -m window --display north
+cmd + ctrl + shift - down : yabai -m window --display south
+
+# === Resize Mode ===
+# Set resize border color 
+:: resize @ : yabai -m config active_window_border_color 0xFFFF00FF
+
+# toggle resize mode 
+resize < cmd + ctrl - s ; default
+
+default < cmd + ctrl - s ; resize
+
+# resize commands
+resize < h : yabai -m window --resize left:-50:0; \
+                  yabai -m window --resize right:-50:0
+resize < j : yabai -m window --resize bottom:0:50; \
+                  yabai -m window --resize top:0:50
+resize < k : yabai -m window --resize top:0:-50; \
+                  yabai -m window --resize bottom:0:-50
+resize < l : yabai -m window --resize right:50:0; \
+                  yabai -m window --resize left:50:0
+
+# Modifying layout clockwise
+cmd + ctrl - r : yabai -m space --rotate 270
+
+# Swap windows
+cmd + ctrl + shift - h : yabai -m window --swap west
+cmd + ctrl + shift - j : yabai -m window --swap south
+cmd + ctrl + shift - k : yabai -m window --swap north
+cmd + ctrl + shift - l : yabai -m window --swap east
+
+# toggle window float
+cmd + ctrl - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# maximize a window
+cmd + ctrl - z : yabai -m window --toggle zoom-fullscreen
+
+# balance out tree of windows 
+cmd + ctrl - b : yabai -m space --balance
+
+# Use yabai for alacritty and fi
+
