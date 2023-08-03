@@ -32,10 +32,10 @@ yabai -m config   active_window_border_color   0xE032CD32
 yabai -m config   insert_feedback_color        0x00010101
 yabai -m config   normal_window_border_color   0xE02d74da
 
-yabai -m config   window_border_width          4
+yabai -m config   window_border_width          3
 yabai -m config   window_border_radius         10
 yabai -m config   window_border_blur           on
-yabai -m config   window_border_hidpi          off
+yabai -m config   window_border_hidpi          on
 yabai -m config   window_border                on
 yabai -m config   window_gap                   1
 
@@ -55,7 +55,7 @@ yabai -m config   mouse_action1                move
 yabai -m config   mouse_action2                resize
 yabai -m config   mouse_drop_action            swap
 
-# only manage WezTerm and Firefox
+# only manage WezTerm and Firefox.
 yabai -m rule --add app!="^(WezTerm|Firefox Developer Edition)$" manage=off
 
 echo "yabai configuration loaded.."
