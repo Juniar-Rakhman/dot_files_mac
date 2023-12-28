@@ -12,13 +12,13 @@ export ZSH="/Users/jrakhman/.oh-my-zsh"
 plugins=(
     git
     colored-man-pages
+    zsh-vi-mode
     zsh-autosuggestions
-    zsh-interactive-cd
     zsh-syntax-highlighting
-    # zsh-vi-mode # doesn't work if zsh-syntax-highlighting is on
 )
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
+# FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,24 +53,30 @@ export PATH=$GOPATH/bin:$PATH
 export CARGO_PATH=$HOME/.cargo
 export PATH=$CARGO_PATH/bin:$PATH
 
+#nvm PATH
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Bun path
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # Docker settings
-export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+# export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+export DOCKER_HOST="unix:///var/run/docker.sock"
 # export COMPOSE_DOCKER_CLI_BUILD=1
 # export DOCKER_BUILDKIT=1
-# export DOCKER_DEFAULT_PLATFORM=1
+
+export OPENAI_API_KEY="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"
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
