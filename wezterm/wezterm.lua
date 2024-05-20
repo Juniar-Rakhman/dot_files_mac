@@ -4,14 +4,17 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 
 local function tab_title(tab_info)
-	local title = tab_info.tab_title
 	-- if the tab title is explicitly set, take that
-	if title and #title > 0 then
-		return title
+	if tab_info.tab_title and #tab_info.tab_title > 0 then
+		return tab_info.tab_title
 	end
 	-- Otherwise, use the title from the active pane
 	-- in that tab
-	return tab_info.active_pane.title
+	local title = tab_info.active_pane.title
+	-- do not display nvim path in tab
+	title = title:gsub("%(.*%)", "")
+	-- remove trailing spaces
+	return title:gsub("%s+", " ")
 end
 
 wezterm.on("update-right-status", function(window, pane)
@@ -34,10 +37,10 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	local dim_foreground = "#3A3A3A"
 
 	if tab.is_active then
-		background = "#FBB829"
+		background = "#66aaed"
 		foreground = "#1C1B19"
 	elseif hover then
-		background = "#FF8700"
+		background = "#274e75"
 		foreground = "#1C1B19"
 	end
 
@@ -45,8 +48,15 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 
 	local title = tab_title(tab)
 	local left_arrow = SOLID_LEFT_ARROW
+
+	local zoom_str = ""
+
 	if tab.tab_index == 0 then
 		left_arrow = SOLID_LEFT_MOST
+	end
+
+	if tab.active_pane.is_zoomed then
+		zoom_str = "[Z]"
 	end
 
 	return {
@@ -56,7 +66,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		{ Text = left_arrow },
 		{ Background = { Color = background } },
 		{ Foreground = { Color = foreground } },
-		{ Text = tab.tab_index + 1 .. "|" .. tab.active_pane.pane_index + 1 .. ": " .. title },
+
+		{ Text = tab.tab_index + 1 .. "|" .. tab.active_pane.pane_index + 1 .. ": " .. title .. " " .. zoom_str },
 		{ Background = { Color = edge_background } },
 		{ Foreground = { Color = edge_foreground } },
 		{ Text = SOLID_RIGHT_ARROW },
@@ -83,6 +94,8 @@ config.tab_max_width = 60
 config.tab_bar_at_bottom = true
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
+-- config.font = wezterm.font("Iosevka Term")
+
 --<!-- -- != := === == != >= >- >=> |-> -> <$> </> #[ |||> |= ~@
 
 config.font_size = 12
