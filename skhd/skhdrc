@@ -3,15 +3,29 @@
 # reset border color in default mode
 :: default : yabai -m config active_window_border_color 0xE032CD32
 
-# Changing Window Focus
-cmd + alt + ctrl - h : yabai -m window --focus west
-cmd + alt + ctrl - j : yabai -m window --focus south
-cmd + alt + ctrl - k : yabai -m window --focus north
-cmd + alt + ctrl - l : yabai -m window --focus east
+# Change focus on window if available else change focus on the display
+cmd + alt + ctrl - w : yabai -m window --focus north || yabai -m display --focus north
+cmd + alt + ctrl - s : yabai -m window --focus south || yabai -m display --focus south
+cmd + alt + ctrl - a : yabai -m window --focus west  || yabai -m display --focus west
+cmd + alt + ctrl - d : yabai -m window --focus east  || yabai -m display --focus east
 
 # Change focus between external display
-cmd + alt + ctrl - up : yabai -m display --focus north
-cmd + alt + ctrl - down : yabai -m display --focus south
+# cmd + alt + ctrl - w : yabai -m display --focus north
+# cmd + alt + ctrl - s : yabai -m display --focus south
+# cmd + alt + ctrl - a : yabai -m display --focus west
+# cmd + alt + ctrl - d : yabai -m display --focus east
+
+### Spaces ### requires disabling system integrity protection
+### NOTE: configured in System Setttings
+
+# cmd + alt + ctrl - 1 : yabai -m space --focus 1
+# cmd + alt + ctrl - 2 : yabai -m space --focus 2
+# cmd + alt + ctrl - 3 : yabai -m space --focus 3
+# cmd + alt + ctrl - 4 : yabai -m space --focus 4
+# cmd + alt + ctrl - 5 : yabai -m space --focus 5
+# cmd + alt + ctrl - 6 : yabai -m space --focus 6
+# cmd + alt + ctrl - n : yabai -m space --focus next
+# cmd + alt + ctrl - p : yabai -m space --focus prev
 
 ### Moving Windows ###
 
@@ -27,34 +41,15 @@ cmd + alt + ctrl + shift - 2 : yabai -m window --space 2
 cmd + alt + ctrl + shift - 3 : yabai -m window --space 3
 cmd + alt + ctrl + shift - 4 : yabai -m window --space 4
 cmd + alt + ctrl + shift - 5 : yabai -m window --space 5
+cmd + alt + ctrl + shift - 6 : yabai -m window --space 6
 
 # Moving window to external display
-cmd + alt + ctrl + shift - up : yabai -m window --display north
-cmd + alt + ctrl + shift - down : yabai -m window --display south
-
-### Resize windows ###
-# === Resize Mode ===
-# Set resize border color
-:: resize @ : yabai -m config active_window_border_color 0xFFFF00FF
-
-# toggle resize mode
-resize < cmd + alt + ctrl - s ; default
-
-default < cmd + alt + ctrl - s ; resize
-
-# resize commands
-resize < h : yabai -m window --resize left:-50:0; \
-    yabai -m window --resize right:-50:0
-resize < j : yabai -m window --resize bottom:0:50; \
-    yabai -m window --resize top:0:50
-resize < k : yabai -m window --resize top:0:-50; \
-    yabai -m window --resize bottom:0:-50
-resize < l : yabai -m window --resize right:50:0; \
-    yabai -m window --resize left:50:0
+cmd + alt + ctrl + shift - w : yabai -m window --display north
+cmd + alt + ctrl + shift - s : yabai -m window --display south
 
 ### Changing Layout ###
 # Modifying layout clockwise
-cmd + alt + ctrl - r : yabai -m space --rotate 270
+cmd + alt + ctrl - o : yabai -m space --rotate 270
 
 # toggle window float
 cmd + alt + ctrl - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
@@ -64,3 +59,25 @@ cmd + alt + ctrl - z : yabai -m window --toggle zoom-fullscreen
 
 # balance out tree of windows
 cmd + alt + ctrl - b : yabai -m space --balance
+
+### Resize windows ###
+# NOTE: border color is now deleted, resize using mouse instead
+# === Resize Mode ===
+# Set resize border color
+# :: resize @ : yabai -m config active_window_border_color 0xFFFF00FF
+
+# toggle resize mode
+# resize < cmd + alt + ctrl - r ; default
+#
+# default < cmd + alt + ctrl - r ; resize
+#
+# # resize commands
+# resize < h : yabai -m window --resize left:-50:0; \
+#     yabai -m window --resize right:-50:0
+# resize < j : yabai -m window --resize bottom:0:50; \
+#     yabai -m window --resize top:0:50
+# resize < k : yabai -m window --resize top:0:-50; \
+#     yabai -m window --resize bottom:0:-50
+# resize < l : yabai -m window --resize right:50:0; \
+#     yabai -m window --resize left:50:0
+
