@@ -95,6 +95,7 @@ config.tab_bar_at_bottom = true
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 -- config.font = wezterm.font("Iosevka Term")
+-- config.font = wezterm.font("VictorMono Nerd Font")
 
 --<!-- -- != := === == != >= >- >=> |-> -> <$> </> #[ |||> |= ~@
 

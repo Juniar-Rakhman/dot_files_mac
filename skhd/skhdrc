@@ -64,20 +64,21 @@ cmd + alt + ctrl - b : yabai -m space --balance
 # NOTE: border color is now deleted, resize using mouse instead
 # === Resize Mode ===
 # Set resize border color
-# :: resize @ : yabai -m config active_window_border_color 0xFFFF00FF
+:: resize @ : borders active_color 0xffe1e3e4
 
 # toggle resize mode
-# resize < cmd + alt + ctrl - r ; default
-#
-# default < cmd + alt + ctrl - r ; resize
-#
-# # resize commands
-# resize < h : yabai -m window --resize left:-50:0; \
-#     yabai -m window --resize right:-50:0
-# resize < j : yabai -m window --resize bottom:0:50; \
-#     yabai -m window --resize top:0:50
-# resize < k : yabai -m window --resize top:0:-50; \
-#     yabai -m window --resize bottom:0:-50
-# resize < l : yabai -m window --resize right:50:0; \
-#     yabai -m window --resize left:50:0
+
+resize < cmd + alt + ctrl - r ; default
+
+default < cmd + alt + ctrl - r ; resize
+
+# resize commands
+resize < h : yabai -m window --resize left:-50:0; \
+    yabai -m window --resize right:-50:0
+resize < j : yabai -m window --resize bottom:0:50; \
+    yabai -m window --resize top:0:50
+resize < k : yabai -m window --resize top:0:-50; \
+    yabai -m window --resize bottom:0:-50
+resize < l : yabai -m window --resize right:50:0; \
+    yabai -m window --resize left:50:0
 
