@@ -161,6 +161,16 @@ local tmux_keymap = {
 		action = act.SendKey({ key = "a", mods = "CTRL" }),
 	},
 	{
+		key = "LeftArrow",
+		mods = "LEADER",
+		action = act.MoveTabRelative(-1),
+	},
+	{
+		key = "RightArrow",
+		mods = "LEADER",
+		action = act.MoveTabRelative(1),
+	},
+	{
 		key = "\\",
 		mods = "LEADER",
 		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
