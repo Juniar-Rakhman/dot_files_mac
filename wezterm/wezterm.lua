@@ -271,5 +271,5 @@ for i = 1, #tmux_keymap do
 	table.insert(config.keys, tmux_keymap[i])
 end
 
--- and finally, return the configuration to wezterm
+-- return the configuration to wezterm
 return config
