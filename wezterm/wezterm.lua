@@ -152,6 +152,11 @@ config.keys = {
 	},
 }
 
+config.inactive_pane_hsb = {
+	saturation = 0.5,
+	brightness = 0.5,
+}
+
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 50000 }
 local tmux_keymap = {
 	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
