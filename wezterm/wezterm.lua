@@ -90,7 +90,7 @@ config.macos_window_background_blur = 30
 
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
-config.tab_max_width = 60
+config.tab_max_width = 100
 config.tab_bar_at_bottom = true
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
@@ -152,6 +152,7 @@ config.keys = {
 	},
 }
 
+-- make inactive pane more noticable
 config.inactive_pane_hsb = {
 	saturation = 0.5,
 	brightness = 0.5,
@@ -218,22 +219,22 @@ local tmux_keymap = {
 	{
 		key = "H",
 		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Left", 5 }),
+		action = act.AdjustPaneSize({ "Left", 10 }),
 	},
 	{
 		key = "J",
 		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Down", 5 }),
+		action = act.AdjustPaneSize({ "Down", 10 }),
 	},
 	{
 		key = "K",
 		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Up", 5 }),
+		action = act.AdjustPaneSize({ "Up", 10 }),
 	},
 	{
 		key = "L",
 		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Right", 5 }),
+		action = act.AdjustPaneSize({ "Right", 10 }),
 	},
 	{
 		key = "&",
