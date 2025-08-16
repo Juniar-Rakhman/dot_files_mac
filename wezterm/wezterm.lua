@@ -1,7 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
-
 local act = wezterm.action
+local mux = wezterm.mux
 
 local function tab_title(tab_info)
 	-- if the tab title is explicitly set, take that
@@ -82,6 +82,14 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+-- TODO: not using mux
+-- Setup muxing by default
+-- config.unix_domains = {
+-- 	{
+-- 		name = "unix",
+-- 	},
+-- }
+
 -- This is where you actually apply your config choices
 config.window_background_opacity = 0.7
 
@@ -158,13 +166,14 @@ config.inactive_pane_hsb = {
 	brightness = 0.5,
 }
 
+-- Use CTRL-A as leader. Same as it was in tmux
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 50000 }
-local tmux_keymap = {
-	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+
+local keymap = {
 	{
 		key = "a",
 		mods = "LEADER|CTRL",
-		action = act.SendKey({ key = "a", mods = "CTRL" }),
+		action = act.SendKey({ key = "a", mods = "CTRL" }), -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
 	},
 	{
 		key = "LeftArrow",
@@ -189,7 +198,7 @@ local tmux_keymap = {
 	{
 		key = "z",
 		mods = "LEADER",
-		action = "TogglePaneZoomState",
+		action = act.TogglePaneZoomState,
 	},
 	{
 		key = "c",
@@ -237,7 +246,7 @@ local tmux_keymap = {
 		action = act.AdjustPaneSize({ "Right", 10 }),
 	},
 	{
-		key = "&",
+		key = "!",
 		mods = "LEADER",
 		action = act.CloseCurrentTab({ confirm = true }),
 	},
@@ -261,6 +270,12 @@ local tmux_keymap = {
 		mods = "LEADER",
 		action = act.ActivatePaneDirection("Next"),
 	},
+	{
+		key = "`",
+		mods = "LEADER",
+		action = act.ActivateCopyMode,
+	},
+
 	{ key = "1", mods = "LEADER", action = act.ActivateTab(0) },
 	{ key = "2", mods = "LEADER", action = act.ActivateTab(1) },
 	{ key = "3", mods = "LEADER", action = act.ActivateTab(2) },
@@ -270,11 +285,53 @@ local tmux_keymap = {
 	{ key = "7", mods = "LEADER", action = act.ActivateTab(6) },
 	{ key = "8", mods = "LEADER", action = act.ActivateTab(7) },
 	{ key = "9", mods = "LEADER", action = act.ActivateTab(8) },
-	{ key = "PageUp", action = act.ScrollByPage(-0.5) },
-	{ key = "PageDown", action = act.ScrollByPage(0.5) },
+	-- { key = "PageUp", action = act.ScrollByPage(-0.5) },
+	-- { key = "PageDown", action = act.ScrollByPage(0.5) },
+
+	-- ----------------------------------------------------------------
+	-- Workspaces
+	--
+	-- These are roughly equivalent to tmux sessions.
+	-- ----------------------------------------------------------------
+
+	-- Show list of workspaces
+	{
+		key = "W",
+		mods = "LEADER",
+		action = act.ShowLauncherArgs({ flags = "WORKSPACES" }),
+	},
+	{
+		key = "M",
+		mods = "LEADER",
+		action = act.SwitchToWorkspace({ name = "default" }),
+	},
+	{
+		key = "N",
+		mods = "LEADER",
+		action = act.SwitchToWorkspace({ name = "notes" }),
+	},
+	{
+		key = "O",
+		mods = "LEADER",
+		action = act.SwitchToWorkspace({ name = "other" }),
+	},
+	-- Rename current session/workspace
+	{
+		key = "R",
+		mods = "LEADER|SHIFT",
+		action = act.PromptInputLine({
+			description = "Enter new name for workspace",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					mux.rename_workspace(window:mux_window():get_workspace(), line)
+				end
+			end),
+		}),
+	},
 }
-for i = 1, #tmux_keymap do
-	table.insert(config.keys, tmux_keymap[i])
+
+for i = 1, #keymap do
+	table.insert(config.keys, keymap[i])
 end
 
 -- return the configuration to wezterm
