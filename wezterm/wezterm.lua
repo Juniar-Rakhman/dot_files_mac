@@ -18,6 +18,27 @@ local function tab_title(tab_info)
 end
 
 wezterm.on("update-right-status", function(window, pane)
+	-- Current workspace (uppercased)
+	local workspace = string.upper(window:active_workspace())
+
+	-- Pick a background color depending on workspace
+	local ws_colors = {
+		WORK = "#274e75", -- blue
+		NOTES = "#b58900", -- yellow
+		OTHER = "#859900", -- green
+	}
+
+	local bg = ws_colors[workspace] or "#4E4E4E" -- fallback gray
+
+	-- Left side: workspace name with background
+	window:set_left_status(wezterm.format({
+		{ Attribute = { Intensity = "Bold" } },
+		{ Background = { Color = bg } },
+		{ Foreground = { Color = "#1C1B19" } },
+		{ Text = " 󰉋 " .. workspace .. " " },
+		{ Background = { Color = "None" } }, -- reset back to normal
+	}))
+
 	local date = wezterm.strftime("%a %-d %b %H:%M ")
 	window:set_right_status(wezterm.format({
 		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
@@ -34,7 +55,6 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	local edge_background = "#121212"
 	local background = "#4E4E4E"
 	local foreground = "#1C1B19"
-	local dim_foreground = "#3A3A3A"
 
 	if tab.is_active then
 		background = "#66aaed"
@@ -107,7 +127,7 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 
 --<!-- -- != := === == != >= >- >=> |-> -> <$> </> #[ |||> |= ~@
 
-config.font_size = 12
+config.font_size = 13
 config.freetype_load_flags = "NO_HINTING"
 
 config.colors = {
@@ -303,7 +323,7 @@ local keymap = {
 	{
 		key = "M",
 		mods = "LEADER",
-		action = act.SwitchToWorkspace({ name = "default" }),
+		action = act.SwitchToWorkspace({ name = "work" }),
 	},
 	{
 		key = "N",
