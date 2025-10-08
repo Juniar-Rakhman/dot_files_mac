@@ -34,7 +34,7 @@ wezterm.on("update-right-status", function(window, pane)
 	window:set_left_status(wezterm.format({
 		{ Attribute = { Intensity = "Bold" } },
 		{ Background = { Color = bg } },
-		{ Foreground = { Color = "#1C1B19" } },
+		{ Foreground = { Color = "#FCE8C3" } },
 		{ Text = " 󰉋 " .. workspace .. " " },
 		{ Background = { Color = "None" } }, -- reset back to normal
 	}))
