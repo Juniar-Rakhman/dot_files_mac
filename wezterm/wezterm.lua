@@ -182,8 +182,8 @@ config.keys = {
 
 -- make inactive pane more noticable
 config.inactive_pane_hsb = {
-	saturation = 0.5,
-	brightness = 0.5,
+	saturation = 0.35,
+	brightness = 0.35,
 }
 
 -- Use CTRL-A as leader. Same as it was in tmux

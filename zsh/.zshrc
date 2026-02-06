@@ -151,3 +151,6 @@ alias zz='zcd'
 
 . "$HOME/.local/bin/env"
 
+
+# bun completions
+[ -s "/Users/jrakhman/.bun/_bun" ] && source "/Users/jrakhman/.bun/_bun"
