@@ -45,6 +45,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/share/bob/nightly/bin:$PATH
 
 # GO PATH
 export PATH=$PATH:/opt/homebrew/Cellar/go/1.20.5/
@@ -154,3 +155,11 @@ alias zz='zcd'
 
 # bun completions
 [ -s "/Users/jrakhman/.bun/_bun" ] && source "/Users/jrakhman/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/Users/jrakhman/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

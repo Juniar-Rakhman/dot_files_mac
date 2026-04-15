@@ -161,6 +161,38 @@ config.visual_bell = {
 }
 
 config.keys = {
+	-- Open URL
+	{
+		key = "o",
+		mods = "CTRL|SHIFT",
+		action = act.QuickSelectArgs({
+			patterns = {
+				"https?://\\S+",
+			},
+			action = wezterm.action_callback(function(window, pane)
+				local url = window:get_selection_text_for_pane(pane)
+				wezterm.open_with(url)
+			end),
+		}),
+	},
+
+	-- Copy URL, or git, or file path
+	{
+		key = "y",
+		mods = "CTRL|SHIFT",
+		action = act.QuickSelectArgs({
+			patterns = {
+				"https?://\\S+",
+				"git@\\S+",
+				"/[\\w%./_-]+", -- file paths
+			},
+			action = wezterm.action_callback(function(window, pane)
+				local url = window:get_selection_text_for_pane(pane)
+				window:copy_to_clipboard(url)
+			end),
+		}),
+	},
+
 	-- Rebind CTRL-SHIFT <-/-> to match TMUX keybindings
 	{
 		key = "LeftArrow",
