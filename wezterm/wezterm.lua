@@ -277,26 +277,26 @@ local keymap = {
 		mods = "LEADER",
 		action = act.ActivatePaneDirection("Right"),
 	},
-	{
-		key = "H",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Left", 10 }),
-	},
-	{
-		key = "J",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Down", 10 }),
-	},
-	{
-		key = "K",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Up", 10 }),
-	},
-	{
-		key = "L",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Right", 10 }),
-	},
+	-- {
+	-- 	key = "H",
+	-- 	mods = "LEADER",
+	-- 	action = act.AdjustPaneSize({ "Left", 10 }),
+	-- },
+	-- {
+	-- 	key = "J",
+	-- 	mods = "LEADER",
+	-- 	action = act.AdjustPaneSize({ "Down", 10 }),
+	-- },
+	-- {
+	-- 	key = "K",
+	-- 	mods = "LEADER",
+	-- 	action = act.AdjustPaneSize({ "Up", 10 }),
+	-- },
+	-- {
+	-- 	key = "L",
+	-- 	mods = "LEADER",
+	-- 	action = act.AdjustPaneSize({ "Right", 10 }),
+	-- },
 	{
 		key = "!",
 		mods = "LEADER",
@@ -380,11 +380,33 @@ local keymap = {
 			end),
 		}),
 	},
+	-- toggle resize pane mode
+	{
+		key = "r",
+		mods = "LEADER",
+		action = act.ActivateKeyTable({
+			name = "resize_pane",
+			one_shot = false,
+		}),
+	},
 }
 
 for i = 1, #keymap do
 	table.insert(config.keys, keymap[i])
 end
+
+-- key table for resize_pane
+config.key_tables = {
+	resize_pane = {
+		{ key = "h", action = act.AdjustPaneSize({ "Left", 5 }) },
+		{ key = "l", action = act.AdjustPaneSize({ "Right", 5 }) },
+		{ key = "k", action = act.AdjustPaneSize({ "Up", 5 }) },
+		{ key = "j", action = act.AdjustPaneSize({ "Down", 5 }) },
+
+		-- Cancel the mode by pressing escape
+		{ key = "Escape", action = "PopKeyTable" },
+	},
+}
 
 -- return the configuration to wezterm
 return config
