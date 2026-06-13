@@ -39,8 +39,23 @@ wezterm.on("update-right-status", function(window, pane)
 		{ Background = { Color = "None" } }, -- reset back to normal
 	}))
 
+	-- Show "RESIZE" indicator in right status when resize pane mode is active
+	local key_table = window:active_key_table()
+	local mode_indicator = ""
+	local mode_bg = ""
+	if key_table == "resize_pane" then
+		mode_indicator = " RESIZE "
+		mode_bg = "#b58900" -- yellow
+	end
+
 	local date = wezterm.strftime("%a %-d %b %H:%M ")
 	window:set_right_status(wezterm.format({
+		{ Attribute = { Intensity = "Bold" } },
+		{ Background = { Color = mode_bg } },
+		{ Foreground = { Color = "#1C1B19" } },
+		{ Text = mode_indicator },
+		{ Background = { Color = "#121212" } },
+		{ Foreground = { Color = "#FCE8C3" } },
 		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
 	}))
 end)
@@ -140,6 +155,7 @@ config.colors = {
 	},
 }
 
+-- hides title bar, keeps thin resize border (unrelated to pane resize mode)
 config.window_decorations = "RESIZE"
 
 config.front_end = "WebGpu"
