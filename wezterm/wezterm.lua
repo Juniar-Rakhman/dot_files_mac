@@ -30,30 +30,30 @@ wezterm.on("update-right-status", function(window, pane)
 
 	local bg = ws_colors[workspace] or "#4E4E4E" -- fallback gray
 
-	-- Left side: workspace name with background
+	-- Show "RESIZE" indicator at very left, then workspace name
+	local key_table = window:active_key_table()
+	local mode_indicator = ""
+	local mode_bg = "transparent"
+
+	if key_table == "resize_pane" then
+		mode_indicator = " RESIZE "
+		mode_bg = "#ff1ffe"
+	end
+
 	window:set_left_status(wezterm.format({
 		{ Attribute = { Intensity = "Bold" } },
+		{ Background = { Color = mode_bg } },
+		{ Foreground = { Color = "#FCE8C3" } },
+		{ Text = mode_indicator },
 		{ Background = { Color = bg } },
 		{ Foreground = { Color = "#FCE8C3" } },
 		{ Text = " 󰉋 " .. workspace .. " " },
-		{ Background = { Color = "None" } }, -- reset back to normal
+		{ Background = { Color = "None" } },
 	}))
-
-	-- Show "RESIZE" indicator in right status when resize pane mode is active
-	local key_table = window:active_key_table()
-	local mode_indicator = ""
-	local mode_bg = ""
-	if key_table == "resize_pane" then
-		mode_indicator = " RESIZE "
-		mode_bg = "#b58900" -- yellow
-	end
 
 	local date = wezterm.strftime("%a %-d %b %H:%M ")
 	window:set_right_status(wezterm.format({
 		{ Attribute = { Intensity = "Bold" } },
-		{ Background = { Color = mode_bg } },
-		{ Foreground = { Color = "#1C1B19" } },
-		{ Text = mode_indicator },
 		{ Background = { Color = "#121212" } },
 		{ Foreground = { Color = "#FCE8C3" } },
 		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
